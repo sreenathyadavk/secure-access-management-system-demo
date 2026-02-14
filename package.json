@@ -1,1 +1,47 @@
-{"name": "secure-access-system","version": "1.0.0","description": "Production-style auth backend with JWT, RBAC, audit logging. Node.js, Express, PostgreSQL, Prisma.","main": "src/app.js","scripts": {"start": "node src/app.js","dev": "nodemon src/app.js","test": "echo \"Error: no test specified\" && exit 1"},"keywords": ["auth", "jwt", "rbac", "express", "prisma", "postgresql"],"license": "MIT","repository": {"type": "git","url": "git@github.com:sreenathyadavk/secure-access-management-system-demo.git"},"engines": {"node": ">=18"},"dependencies": {"bcrypt": "^6.0.0","cors": "^2.8.6","dotenv": "^17.3.1","express": "^5.2.1","express-rate-limit": "^8.2.1","helmet": "^8.1.0","jsonwebtoken": "^9.0.3","morgan": "^1.10.1","pg": "^8.18.0","zod": "^4.3.6"},"devDependencies": {"@prisma/client": "^5.10.0","nodemon": "^3.1.11","prisma": "^5.10.0"}}
+{
+    "name": "secure-access-system",
+    "version": "1.0.0",
+    "description": "Production-style auth backend with JWT, RBAC, audit logging. Node.js, Express, PostgreSQL, Prisma.",
+    "main": "src/app.js",
+    "scripts": {
+        "start": "node src/app.js",
+        "dev": "nodemon src/app.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "keywords": [
+        "auth",
+        "jwt",
+        "rbac",
+        "express",
+        "prisma",
+        "postgresql"
+    ],
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "git@github.com:sreenathyadavk/secure-access-management-system-demo.git"
+    },
+    "engines": {
+        "node": ">=18"
+    },
+    "dependencies": {
+        "bcrypt": "^6.0.0",
+        "cors": "^2.8.6",
+        "dotenv": "^17.3.1",
+        "express": "^5.2.1",
+        "express-rate-limit": "^8.2.1",
+        "helmet": "^8.1.0",
+        "jsonwebtoken": "^9.0.3",
+        "morgan": "^1.10.1",
+        "pg": "^8.18.0",
+        "prisma": "^5.10.0",
+        "zod": "^4.3.6"
+    },
+    "devDependencies": {
+        "@prisma/client": "^5.10.0",
+        "nodemon": "^3.1.11"
+    },
+    "prisma": {
+        "seed": "node prisma/seed.js"
+    }
+}

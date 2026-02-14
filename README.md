@@ -164,6 +164,14 @@ Admin routes use both: `router.use(protect); router.use(restrictTo('ADMIN'));`.
 3. **Protected routes**: Client sends `Authorization: Bearer <token>`. Middleware verifies JWT (signature + expiry), loads user from DB, sets `req.user`. Expired token → 401 with message "Token expired. Please log in again."
 4. **Admin routes**: Same as above, then `restrictTo('ADMIN')` checks `req.user.role`.
 
+### Data Seeding
+To create an initial Admin user for testing:
+```bash
+npx prisma db seed
+# Creates: admin@secure-access.com / adminpassword
+```
+(On Render, you may need to run this manually via Shell or a Job if needed, but typically you'd register a user and manually promote them in the DB for prod).
+
 ---
 
 ## Environment Variables

@@ -5,11 +5,8 @@
 services:
   - type: web
     name: secure-access-system
-    runtime: node
+    runtime: docker
     region: oregon
-
-    buildCommand: npm install && npx prisma generate
-    startCommand: npx prisma migrate deploy && npm start
 
     envVars:
       - key: NODE_ENV

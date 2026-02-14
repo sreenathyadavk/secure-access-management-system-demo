@@ -2,6 +2,7 @@
 FROM node:20-alpine AS builder
 
 WORKDIR /app
+RUN apk add --no-cache openssl
 
 # Install all dependencies (including devDependencies for Prisma CLI)
 COPY package.json package-lock.json ./
@@ -22,6 +23,9 @@ WORKDIR /app
 
 ENV NODE_ENV=production
 
+# Install openssl for Prisma
+RUN apk add --no-cache openssl
+
 # Create app user
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 appuser
@@ -32,6 +36,9 @@ COPY --from=builder /app/package.json ./package.json
 COPY --from=builder /app/src ./src
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/prisma ./prisma
+
+# Fix permissions
+RUN chown -R appuser:nodejs /app
 
 # Switch to app user
 USER appuser
