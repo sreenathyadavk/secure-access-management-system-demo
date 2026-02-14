@@ -1,0 +1,40 @@
+# Secure Access Management System - Local development
+# Usage: docker-compose up -d
+# App: http://localhost:3000
+
+services:
+  db:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_USER: app
+      POSTGRES_PASSWORD: appsecret
+      POSTGRES_DB: secure_access
+    ports:
+      - "5432:5432"
+    volumes:
+      - secure_access_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U app -d secure_access"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      DATABASE_URL: postgresql://app:appsecret@db:5432/secure_access
+      JWT_SECRET: change-me-in-production-use-long-random-string
+      JWT_EXPIRES_IN: 15m
+      CORS_ORIGIN: "*"
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  secure_access_pgdata:

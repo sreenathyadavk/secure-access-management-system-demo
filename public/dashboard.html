@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Secure Access Management System</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="container nav-content">
+            <div class="brand">Secure Access Management System</div>
+            <div class="nav-links">
+                <span id="userEmail" style="color: var(--text-secondary); margin-right: 1rem;"></span>
+                <button id="logoutBtn">Logout</button>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="card">
+            <h2>User Dashboard</h2>
+            <div style="margin-top: 1rem;">
+                <p>Welcome to your secure dashboard.</p>
+                <div style="margin-top: 2rem; padding: 1rem; background: var(--bg-color); border-radius: 4px;">
+                    <h3 style="font-size: 1rem; margin-bottom: 0.5rem;">Profile Information</h3>
+                    <p><strong>ID:</strong> <span id="userId">Loading...</span></p>
+                    <p><strong>Email:</strong> <span id="profileEmail">Loading...</span></p>
+                    <p><strong>Role:</strong> <span id="profileRole" class="badge badge-user">—</span></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/api.js"></script>
+    <script src="/js/dashboard.js"></script>
+</body>
+
+</html>

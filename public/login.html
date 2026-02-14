@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Secure Access Management System</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+    <div class="container">
+        <!-- LoginForm -->
+        <header class="auth-brand">Secure Access Management System</header>
+        <div id="login-form-container" class="auth-container">
+            <div class="auth-header">
+                <h2>Welcome Back</h2>
+                <p style="color: var(--text-secondary);">Sign in to your account</p>
+            </div>
+            <div id="login-error" class="error-msg"></div>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" id="loginEmail" required placeholder="you@example.com">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="loginPassword" required placeholder="••••••••">
+                </div>
+                <button type="submit" class="btn">Sign In</button>
+            </form>
+            <div class="auth-footer">
+                Don't have an account? <a href="/register.html" id="showRegister">Create one</a>
+            </div>
+        </div>
+
+        <!-- RegisterForm -->
+        <div id="register-form-container" class="auth-container" style="display: none;">
+            <div class="auth-header">
+                <h2>Create Account</h2>
+                <p style="color: var(--text-secondary);">Join the secure platform</p>
+            </div>
+            <div id="register-error" class="error-msg"></div>
+            <form id="registerForm">
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" id="regEmail" required placeholder="you@example.com">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="regPassword" required placeholder="Min 8 characters">
+                </div>
+                <button type="submit" class="btn">Create Account</button>
+            </form>
+            <div class="auth-footer">
+                Already have an account? <a href="#" id="showLogin">Sign in</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/api.js"></script>
+    <script src="/js/login.js"></script>
+</body>
+
+</html>
