@@ -45,5 +45,9 @@ USER appuser
 
 EXPOSE 3000
 
+# Copy startup script
+COPY --chown=appuser:nodejs start.sh ./start.sh
+RUN chmod +x ./start.sh
+
 # Run migrations and start application
-CMD ["sh", "-c", "npx prisma migrate deploy && node src/app.js"]
+CMD ["./start.sh"]

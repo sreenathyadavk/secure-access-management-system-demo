@@ -13,6 +13,8 @@ requiredEnvVars.forEach((key) => {
     }
 });
 
+console.log("Database URL configured:", !!process.env.DATABASE_URL);
+
 module.exports = {
     port: process.env.PORT || 3000,
     databaseUrl: process.env.DATABASE_URL,
