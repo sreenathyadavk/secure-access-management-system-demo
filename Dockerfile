@@ -12,7 +12,7 @@ RUN npm ci --omit=dev
 FROM base AS prisma
 COPY --from=deps /app/node_modules ./node_modules
 COPY prisma ./prisma
-RUN npx prisma generate
+RUN ./node_modules/.bin/prisma generate
 
 # Production image
 FROM base AS runner
@@ -30,4 +30,4 @@ USER appuser
 EXPOSE 3000
 
 # Run migrations then start (migrate deploy is idempotent)
-CMD ["sh", "-c", "npx prisma migrate deploy && node src/app.js"]
+CMD ["sh", "-c", "./node_modules/.bin/prisma migrate deploy && node src/app.js"]
