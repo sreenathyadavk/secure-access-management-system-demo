@@ -1,33 +1,42 @@
 # Secure Access Management System - Production Dockerfile
-FROM node:20-alpine AS base
+FROM node:20-alpine AS builder
 
 WORKDIR /app
 
-# Install dependencies
-FROM base AS deps
+# Install all dependencies (including devDependencies for Prisma CLI)
 COPY package.json package-lock.json ./
-RUN npm ci --omit=dev
+RUN npm ci
 
-# Prisma generate (needs schema)
-FROM base AS prisma
-COPY --from=deps /app/node_modules ./node_modules
+# Copy Prisma schema and generate client
 COPY prisma ./prisma
-RUN ./node_modules/.bin/prisma generate
+RUN npx prisma generate
 
-# Production image
-FROM base AS runner
-ENV NODE_ENV=production
-RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 appuser
-
-COPY --from=deps /app/node_modules ./node_modules
-COPY --from=prisma /app/node_modules/.prisma ./node_modules/.prisma
-COPY package.json ./
+# Copy application code
 COPY src ./src
 COPY public ./public
 
+# Production image
+FROM node:20-alpine AS runner
+
+WORKDIR /app
+
+ENV NODE_ENV=production
+
+# Create app user
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 appuser
+
+# Copy generated Prisma client and node_modules from builder
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/package.json ./package.json
+COPY --from=builder /app/src ./src
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/prisma ./prisma
+
+# Switch to app user
 USER appuser
+
 EXPOSE 3000
 
-# Run migrations then start (migrate deploy is idempotent)
-CMD ["sh", "-c", "./node_modules/.bin/prisma migrate deploy && node src/app.js"]
+# Run migrations and start application
+CMD ["sh", "-c", "npx prisma migrate deploy && node src/app.js"]
